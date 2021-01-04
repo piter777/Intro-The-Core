@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Medkit : MonoBehaviour {
+public class Medkit : ActivDamageMetter{
 
 	// Use this for initialization
 
 	void Awake()
 	{
+
 		GameObject player = GameObject.FindGameObjectWithTag ("Player");
 		player.GetComponent<PlayerHealth> ().currentHealth+=2;
 		Destroy (gameObject);

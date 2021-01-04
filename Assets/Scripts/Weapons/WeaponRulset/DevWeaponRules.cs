@@ -9,11 +9,14 @@ public class DevWeaponRules : WeaponStats
     public override IEnumerator FireProjective()
     {
 
-        weaponBulletsInMagazine-=3;
+      
        
         for (int i = 0; i < 3; i++)
         {
-            Accuracy = Random.Range(-(weaponAccuracy), weaponAccuracy);
+            weaponBulletsInMagazine--;
+            if (weaponBulletsInMagazine <= 0)
+                weaponBulletsInMagazine = 0;
+Accuracy = Random.Range(-(weaponAccuracy), weaponAccuracy);
             //Spawn a bulet on player position
             var bullet = (GameObject)Instantiate(this.gameObject, gameObject.transform.parent.transform.position, gameObject.transform.parent.transform.rotation * Quaternion.Euler(0, 0 + (-15 + i * 15) + Accuracy, 0));
             bullet.SetActive(true);

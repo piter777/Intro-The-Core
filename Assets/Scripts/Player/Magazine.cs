@@ -23,6 +23,8 @@ public class Magazine : MonoBehaviour {
 
 		var maxBullets = curentWeponToShow.GetComponent<WeaponStats>().weaponMagazine;
 		var currentBullets = curentWeponToShow.GetComponent<WeaponStats> ().weaponBulletsInMagazine;
-		GetComponent<Text> ().text = "ammo "+ currentBullets + "/" + maxBullets;
+        var nameWeapon = curentWeponToShow.GetComponent<WeaponStats>().weaponName;
+
+        GetComponent<Text> ().text = nameWeapon  + "\n" + currentBullets + "/" + maxBullets;
 	}
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Boos3Shotter : BoosGeneralMechanick
 {
-
+   
     public GameObject specialRoketEnemy;
     public GameObject turet;
  
@@ -91,8 +91,10 @@ public class Boos3Shotter : BoosGeneralMechanick
     // Update is called once per frame
     void Update()
     {
+       
         if (Time.time > nextFire)
         {
+           // Debug.Log("fire");
             nextFire = Time.time + fireRateroketEnemy;
             switch (Random.Range(0, 4))
             {

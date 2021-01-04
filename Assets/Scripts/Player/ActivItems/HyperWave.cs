@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HyperWave : MonoBehaviour, IUsable {
+public class HyperWave : ActivDamageMetter {
 
 	public GameObject weaponShot;
 	private GameObject player;
@@ -65,26 +65,11 @@ public class HyperWave : MonoBehaviour, IUsable {
 
 	private float nextFire;
 
-/*	void Update ()
-	{
-		if (Time.time > nextFire) 
-		{
-			
-			Debug.Log ( "timers 1s");
-			nextFire = Time.time + 1f;
-		}
-
-	}*/
 
 
 
 
 
-	public	void Activate()
-	{
-		//ChirleSoot ();
-		//StartCoroutine(	ChirleSoot () );
-		//	Debug.Log("activate");
-	}
+
 
 }

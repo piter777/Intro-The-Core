@@ -35,7 +35,7 @@ public class MenuController : MonoBehaviour {
 
 
 		}
-		if(Input.GetKeyDown(KeyCode.R))
+		if(Input.GetKeyDown(KeyCode.U))
 		{
 			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); //restart the game
 		}

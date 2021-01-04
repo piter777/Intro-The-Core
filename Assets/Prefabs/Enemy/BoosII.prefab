@@ -66,7 +66,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1914954174572878596}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.4
+  m_Radius: 0.3
   m_Speed: 7
   m_Acceleration: 9
   avoidancePriority: 50
@@ -119,7 +119,7 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1914954174572878596}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 3
   m_Convex: 1
@@ -144,6 +144,8 @@ MonoBehaviour:
   - {fileID: 2863358034126678377}
   - {fileID: 2971205316846321297}
   - {fileID: 1988560149309990038}
+  healthParts: 0
+  plateNumber: 0
 --- !u!1001 &1146097635772940392
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -161,7 +163,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 839728cb06cf58a47b42ad1f88726040, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.2
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 839728cb06cf58a47b42ad1f88726040, type: 3}
       propertyPath: m_LocalPosition.z
@@ -234,7 +236,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f9047bb258af18246a2d850b4d3270f2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.2
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f9047bb258af18246a2d850b4d3270f2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -307,7 +309,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: cd63ec556ccd4094aba0f16832be561c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.2
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: cd63ec556ccd4094aba0f16832be561c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -380,7 +382,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a6d7b8bcb3f01654fbd864f48bf3767f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.2
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a6d7b8bcb3f01654fbd864f48bf3767f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -453,7 +455,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 05241d0aec3efca4a97561f7d1eff064, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.2
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 05241d0aec3efca4a97561f7d1eff064, type: 3}
       propertyPath: m_LocalPosition.z

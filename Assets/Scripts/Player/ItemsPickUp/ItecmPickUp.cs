@@ -47,7 +47,7 @@ public class ItecmPickUp : MonoBehaviour
             GameObject UIcanvas = GameObject.FindGameObjectWithTag("UI");
             toSpawnCanvas.transform.SetParent(UIcanvas.transform, false);
             var canvasText = toSpawnCanvas.transform.GetChild(1); //("PikableWeaponText");
-            canvasText.GetComponent<Text>().text = WeaponToInventory.name;
+            canvasText.GetComponent<Text>().text = WeaponToInventory.GetComponent<WeaponStats>().weaponName;
             var canvasImage = toSpawnCanvas.transform.GetChild(2);
             canvasImage.GetComponent<Image>().sprite = WeaponToInventory.GetComponent<SpriteRenderer>().sprite;
             UIcanvas.GetComponent<PopUpTextSorter>().popUpsList.Add(toSpawnCanvas);

@@ -13,13 +13,14 @@ GameObject:
   - component: {fileID: 114611416704737706}
   - component: {fileID: 114379849832678248}
   - component: {fileID: 212549880131337652}
+  - component: {fileID: -7479461210786392833}
   m_Layer: 0
   m_Name: LaserLight
   m_TagString: Laser
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4473608416697488
 Transform:
   m_ObjectHideFlags: 0
@@ -75,7 +76,6 @@ LineRenderer:
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.2
@@ -138,7 +138,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1301971016382478}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d610de1cafaaa1459d46136f2cdeab8, type: 3}
   m_Name: 
@@ -156,6 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b7f6b645c8ef6040a903f219094af67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponName: Light Lazer
   weaponType: 1
   weaponDamage: 5
   weaponReloadTime: 0.05
@@ -164,6 +165,7 @@ MonoBehaviour:
   weaponMagazineReloadTime: 1
   weaponBulletSpeed: 50
   weaponRottation: 0
+  weaponAccuracy: 0
 --- !u!212 &212549880131337652
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -171,7 +173,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1301971016382478}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -202,7 +204,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 22b1aec0a3b1ce2489b5e14a9e9bd4ef, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8a7bba8665b1d2f4cb5433489baaf0c0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -213,6 +215,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-7479461210786392833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1301971016382478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8ac4930c5bcc8b41b6aac7a9ca708bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxReflectionCount: 5
+  maxStepDistance: 1000
+  line: {fileID: 0}
+  lr: []
 --- !u!1 &1387084399077400
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WeaponStats : MonoBehaviour {
-   
+    public string weaponName="Weapon";
     public int weaponType;
 	public int weaponDamage ;
 	public float weaponReloadTime;
@@ -21,8 +21,9 @@ public class WeaponStats : MonoBehaviour {
     public virtual IEnumerator FireProjective()
     {
         Accuracy = Random.Range(-(weaponAccuracy), weaponAccuracy);
-        weaponBulletsInMagazine--;
-        
+        if (weaponBulletsInMagazine <= 0)
+            weaponBulletsInMagazine = 0;
+
         //Spawn a bulet on player position
         var bullet = (GameObject)Instantiate(this.gameObject, gameObject.transform.parent.transform.position, gameObject.transform.parent.transform.rotation * Quaternion.Euler(0, 0+ Accuracy, 0));
         bullet.SetActive(true);
@@ -36,7 +37,46 @@ public class WeaponStats : MonoBehaviour {
         Destroy(bullet, 2.0f);
         yield return new WaitForSeconds(0);
     }
+    // Destroy by contact
+    protected GameObject player;
+    protected GameObject contactedActivItem;
+
+    protected virtual void OnTriggerEnter(Collider other)
+    {
+
+        if (other.tag == "Enemy")
+        {
+
+            int thisWeaponDamgae = this.GetComponent<WeaponStats>().weaponDamage;
+            EnemyHealth healthEnemy = other.gameObject.GetComponent<EnemyHealth>();
+
+            if (healthEnemy != null)
+            {
+                healthEnemy.DamageTaken(thisWeaponDamgae);
+                
+            }
+            player = GameObject.FindGameObjectWithTag("Player");
+
+            if (player.GetComponent<PlayerWeapons>().activItem != null)
+            {
+
+                contactedActivItem = player.GetComponent<PlayerWeapons>().activItem;
+                contactedActivItem.GetComponent<ActivDamageMetter>().damageNow += thisWeaponDamgae;
+            }
 
 
+            Destroy(gameObject);
+
+
+        }
+
+        if (other.tag == "Room")
+        {
+            Destroy(gameObject);
+        }
+
+
+
+    }
 
 }

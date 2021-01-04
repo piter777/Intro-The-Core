@@ -1,10 +1,13 @@
-﻿using System.Collections;
+﻿
+// This is my 2 yers old code from university for generating dungeon in simple 2D grid.
+// it's a little mess and oversized since for every side every room have specific conditions and code repeat itself 4 times with little changes for fit this conditions.
+// Im send this code as sample because its most interestting code im write, as all other was a small scripts that was common .
+// Even its not ideal but its mine and im bellive right now im can do mutch better.
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Threading;
-using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
-using itc;
 namespace itc
 {
 
@@ -57,10 +60,18 @@ namespace itc
         private Transform fogHolder;
         // A sting that help show many debug information console only.
         private string debugString;
+        public bool visulization;
+       
+
 
 
         // Use this for initialization
         void Start()
+        {
+
+            StartCoroutine(SpawnerOnTImer());
+        }
+        IEnumerator SpawnerOnTImer()
         {
             // Set a player starting health.
             DataHolder.PlayerHealth = 3;
@@ -71,35 +82,52 @@ namespace itc
 
             //	boardHolder.SetParent (GameObject.FindGameObjectWithTag("Dynamic"));
             // Call a fucntion for spawn a s first room.
-            SpawnFirstRoom();
+            StartCoroutine(SpawnFirstRoom());
+            if(visulization)
+            yield return new WaitForSeconds(0.2f);
             // Call a main method that generate most all.
-            GeneratorOfRooms();
+            StartCoroutine(GeneratorOfRooms());
+            if (visulization)
+                yield return new WaitForSeconds(numberOfRoomsToSpawn * 0.2f + 1f);
             // Call a method that spawn a extra room like (loot,secret ets.) on any awalible door;
             //	SpawnRandomPlaceToRoom ( roomPrefab [0] );
-            SpawnRandomPlaceToRoom(roomPrefab[2]);
-            SpawnRandomPlaceToRoom(roomPrefab[2]);
+            if (visulization)
+                yield return new WaitForSeconds(0.1f);
+            StartCoroutine(SpawnRandomPlaceToRoom(roomPrefab[2]));
+            if (visulization)
+                yield return new WaitForSeconds(0.1f);
+            StartCoroutine(SpawnRandomPlaceToRoom(roomPrefab[2]));
+            if (visulization)
+                yield return new WaitForSeconds(0.1f);
             SpawnBossRoom(roomPrefab[3], roomPrefab[1]);
             // method that hold a all exit prefabs for bilding doors and tunennls betwen.
             FindAllExits();
             // method thas close all nonusable doors.
-            SpawnClosedDoors();
+            StartCoroutine(SpawnClosedDoors());
             // Call a last cllas that build tunennls between rooms and finish generating.
-            BuildTunnels();
-            if (fogofWarshither == true) SpawnRoomFogOfWar();
-            Destroy(this.gameObject);
 
+            if (fogofWarshither == true)
+            {
+                SpawnRoomFogOfWar();
+            }
+            //    Destroy(this.gameObject);
+            if (visulization)
+                yield return new WaitForSeconds(0.5f);
+
+            yield return new WaitForSeconds(0);
             // A debug algoritm for see all grid map
             //	for (int i = 0; i < gridRange; i++) {debugString = debugString + System.Environment.NewLine;for (int j = 0; j < gridRange; j++) {debugString = (debugString + gridMap [j, i, 0] + " ");}}Debug.Log (debugString );
-
         }
 
         //A method that spawn a first room 
-        void SpawnFirstRoom()
+        IEnumerator SpawnFirstRoom()
         {
+
             // A first prefab that we use to span.
             GameObject toInstantiate = roomPrefab[0];
             GameObject instance = Instantiate(toInstantiate, new Vector3(steepX, 0f, steepY), Quaternion.identity) as GameObject;
-            roomList.Add(instance); numberRoomsNow++;
+            roomList.Add(instance);
+            numberRoomsNow++;
             // Help hold hierarchy clean
             instance.transform.SetParent(boardHolder);
             // Fill map with new point a first room
@@ -131,8 +159,11 @@ namespace itc
                     newRoomDestination = 3;
                     break;
 
-                default: break;
+                default:
+                    break;
             }
+            if (visulization)
+                yield return new WaitForSeconds(0.1f);
         }
 
 
@@ -160,8 +191,10 @@ namespace itc
 
 
         // Main method of all script that spawn a rooms.
-        void GeneratorOfRooms()
+        IEnumerator GeneratorOfRooms()
         {
+
+
             // A way out from do while.
             int breakKode = 0;
             // for every room we need to spawn this for create 1 room for every iteration.
@@ -176,7 +209,6 @@ namespace itc
                 // one more loop breaking varible for sure.
                 int loopBreking = 0;
 
-
                 // Start of inner cirle or random spawing algoritm
                 do
                 {
@@ -190,38 +222,68 @@ namespace itc
                     int[] thisDoors = RoomExits(NumberOfPrefab);
                     // Counting for all posible exits
                     int TrueCount = 0;
-                    // If old was from Down and new room have doors to up then truecoun++ else old room anywere else truecoun++.
+                    // If old was from Down and new room have doors to up then truecoun++ 
+                    // else old room anywere else truecoun++.
                     if (newRoomDestination == 0)
                     {
-                        if (thisDoors[2] == 1) TrueCount++;
+                        if (thisDoors[2] == 1)
+                        {
+                            TrueCount++;
+
+                        }
                     }
-                    else TrueCount++;
+                    else
+                    {
+                        TrueCount++;
+                    }
 
                     if (newRoomDestination == 1)
                     {
-                        if (thisDoors[3] == 1) TrueCount++;
+                        if (thisDoors[3] == 1)
+                        {
+                            TrueCount++;
+                        }
                     }
-                    else TrueCount++;
+                    else
+                    {
+                        TrueCount++;
+                    }
 
                     if (newRoomDestination == 2)
                     {
-                        if (thisDoors[0] == 1) TrueCount++;
+                        if (thisDoors[0] == 1)
+                        {
+                            TrueCount++;
+                        }
                     }
-                    else TrueCount++;
+                    else
+                    {
+                        TrueCount++;
+                    }
 
                     if (newRoomDestination == 3)
                     {
-                        if (thisDoors[1] == 1) TrueCount++;
+                        if (thisDoors[1] == 1)
+                        {
+                            TrueCount++;
+                        }
                     }
-                    else TrueCount++;
+                    else
+                    {
+                        TrueCount++;
+                    }
 
                     // When we have doors from old room we breat this line as this is good prefab.
-                    if (TrueCount == 4) { breakKode = 1; }
+                    if (TrueCount == 4)
+                    {
+                        breakKode = 1;
+                    }
                     // If we cant fint a need room more than 100 times we breall loop.
                     loopBreking++;
                     if (loopBreking > 100)
                     {
-                        breakKode = 1; Debug.Log("Help I cant FIND ROOM");
+                        breakKode = 1;
+                        Debug.Log("Help I cant FIND ROOM");
                     }
                     // Break code was 1 when we find a perfect prefab;
                 } while (breakKode == 0);
@@ -239,10 +301,13 @@ namespace itc
                 // Then we try to find a best place to spawn a new room.
                 FindPlaceToNextRoom(NumberOfPrefab);
                 // On this moment we create 1 more room.
+                if (visulization)
+                    yield return new WaitForSeconds(0.2f);
             }
             // On this moment we create all rooms.
+            if (visulization)
+                yield return new WaitForSeconds(0.5f);
         }
-
 
         void FindPlaceToNextRoom(int numberOfPrefab)
         {
@@ -280,35 +345,32 @@ namespace itc
                     {
                         steepY += steepDistanse;
                         gridNowY--;
-                        breakCode++;
                         newRoomDestination = 0;
                     }
                     if (1 == RandomSide)
                     {
                         steepX += steepDistanse;
                         gridNowX++;
-                        breakCode++;
                         newRoomDestination = 1;
                     }
                     if (2 == RandomSide)
                     {
                         steepY -= (steepDistanse);
-                        gridNowY++; breakCode++;
+                        gridNowY++;
                         newRoomDestination = 2;
                     }
                     if (3 == RandomSide)
                     {
                         steepX -= (steepDistanse);
                         gridNowX--;
-                        breakCode++;
                         newRoomDestination = 3;
                     }
+                    breakCode++;
                 }
             }
             // We have != when we found a room to spawn or create new if there is no posible to spawn.
             while (breakCode == 0);
         }
-
 
         // A method that return a X and Y of any epmty room and movecoordinates to this position.
         int[] ReturningXY()
@@ -343,7 +405,10 @@ namespace itc
                             // And for last we changecoordinates for new room where is was spawned.
                             steepX = roomList[0].transform.position.x + steepDistanse * xStepcoordinates;
                             steepY = (roomList[0].transform.position.z + steepDistanse * yStepcoordinates + steepDistanse);
-                            if (yStepcoordinates != 0) steepY = (roomList[0].transform.position.z + (steepDistanse * yStepcoordinates * -1) + steepDistanse);
+                            if (yStepcoordinates != 0)
+                            {
+                                steepY = (roomList[0].transform.position.z + (steepDistanse * yStepcoordinates * -1) + steepDistanse);
+                            }
                         }
                         break;
                     // Same for other code different side
@@ -367,7 +432,10 @@ namespace itc
                             newRoomDestination = 2;
                             steepX = roomList[0].transform.position.x + steepDistanse * xStepcoordinates;
                             steepY = (roomList[0].transform.position.z + steepDistanse * yStepcoordinates - steepDistanse);
-                            if (yStepcoordinates != 0) steepY = (roomList[0].transform.position.z + (steepDistanse * yStepcoordinates * -1) - steepDistanse);
+                            if (yStepcoordinates != 0)
+                            {
+                                steepY = (roomList[0].transform.position.z + (steepDistanse * yStepcoordinates * -1) - steepDistanse);
+                            }
                         }
                         break;
                     case 3:
@@ -381,26 +449,30 @@ namespace itc
                             steepY = roomList[curentRoom].transform.position.z;
                         }
                         break;
-                    default: break;
+                    default:
+                        break;
                 }
 
                 // IF we cant fint a new room in 100 iteration stop it.
                 breakLimit++;
-                if (breakLimit > 100) { breakKode = true; Debug.Log("All posible wariations END"); }
+                if (breakLimit > 100)
+                {
+                    breakKode = true;
+                    Debug.Log("All posible wariations END");
+                }
             }
             while (breakKode == false);
             // Return a value for new room in grid.
             return (returning);
         }
 
-
         // Spawn a random room in any free spase
-        void SpawnRandomPlaceToRoom(GameObject TOspawn)
+        IEnumerator SpawnRandomPlaceToRoom(GameObject TOspawn)
         {
             // We just find any free space in grid that have a close non free coordinates and open room and spawn there is room.
             // ALl of this code you can find in generator this is simple same jast for 1 room.
             int breakLimit = 0;
-          //  bool returningWalue = false;
+            //  bool returningWalue = false;
             bool breakKode = false;
             do
             {
@@ -421,7 +493,6 @@ namespace itc
                             exitRoomsGrid[roomList.Count - 1, 0] = gridNowX;
                             exitRoomsGrid[roomList.Count - 1, 1] = gridNowY;
                             breakKode = true;
-                            //returningWalue = true;
                         }
                         break;
                     case 1:
@@ -437,7 +508,6 @@ namespace itc
                             exitRoomsGrid[roomList.Count - 1, 0] = gridNowX;
                             exitRoomsGrid[roomList.Count - 1, 1] = gridNowY;
                             breakKode = true;
-                           // returningWalue = true;
                         }
                         break;
                     case 2:
@@ -453,7 +523,6 @@ namespace itc
                             exitRoomsGrid[roomList.Count - 1, 0] = gridNowX;
                             exitRoomsGrid[roomList.Count - 1, 1] = gridNowY;
                             breakKode = true;
-                          //  returningWalue = true;
                         }
                         break;
                     case 3:
@@ -469,36 +538,29 @@ namespace itc
                             exitRoomsGrid[roomList.Count - 1, 0] = gridNowX;
                             exitRoomsGrid[roomList.Count - 1, 1] = gridNowY;
                             breakKode = true;
-                         //   returningWalue = true;
                         }
                         break;
-
-
-                    default: { break; }
                 }
-
                 breakLimit++;
-
                 if (breakLimit > 25)
                 {
                     breakKode = true;
-                  //  returningWalue = false;
                 }
             }
             while (breakKode == false);
             // If return value 0 we cant spawn a room.
-            // Debug.Log("Room is spawned="+ returningWalue);
+            if (visulization)
+                yield return new WaitForSeconds(0);
 
         }
 
-
-        // Spawn a 2X3 boss room
+        // Spawn a 3X3 boss room
         void SpawnBossRoom(GameObject TOspawn, GameObject TOspawnBoss)
         {
             // We just find any free space in grid that have a close non free coordinates and open room and spawn there is room.
-            // ALl of this code you can find in generator this is simple same jast for 1 room.
+            // ALl of this code you can find in generator this is simple same jast for 1 room but biger size and some exstra if.
             int breakLimit = 0;
-          //  bool returningWalue = false;
+            //  bool returningWalue = false;
             bool breakKode = false;
             do
             {
@@ -506,6 +568,7 @@ namespace itc
                 int paternRandomiser = Random.Range(0, 4);
                 switch (paternRandomiser)
                 {
+
                     case 0:
                         if (gridMap[exitRoomsGrid[curentRoom, 0], exitRoomsGrid[curentRoom, 1] - 1, 0] == 0 && RoomExits(gridMap[exitRoomsGrid[curentRoom, 0], exitRoomsGrid[curentRoom, 1], 0])[0] == 1 && (TOspawn.GetComponent<StatasOfRoom>().thisRoomStats[2] == 1))
                         {
@@ -522,8 +585,6 @@ namespace itc
                                 gridMap[gridNowX, gridNowY, 0] = 1;
                                 exitRoomsGrid[roomList.Count - 1, 0] = gridNowX;
                                 exitRoomsGrid[roomList.Count - 1, 1] = gridNowY;
-                                //   steepDistanse;
-                                //spawn boss room
                                 GameObject instance1 = Instantiate(TOspawnBoss, new Vector3((roomList[numberRoomsNow - 1].transform.position.x), 0f, (roomList[numberRoomsNow - 1].transform.position.z + steepDistanse + 10)), Quaternion.identity) as GameObject;
                                 roomList.Add(instance1);
                                 numberRoomsNow++;
@@ -534,7 +595,6 @@ namespace itc
                                 exitRoomsGrid[roomList.Count - 1, 0] = gridNowX;
                                 exitRoomsGrid[roomList.Count - 1, 1] = gridNowY;
                                 breakKode = true;
-                           //     returningWalue = true;
                             }
                         }
                         break;
@@ -552,7 +612,6 @@ namespace itc
                                 gridMap[gridNowX, gridNowY, 0] = 1;
                                 exitRoomsGrid[roomList.Count - 1, 0] = gridNowX;
                                 exitRoomsGrid[roomList.Count - 1, 1] = gridNowY;
-                                //spawn boss room
                                 GameObject instance1 = Instantiate(TOspawnBoss, new Vector3((roomList[numberRoomsNow - 1].transform.position.x + (steepDistanse + 10)), 0f, (roomList[numberRoomsNow - 1].transform.position.z)), Quaternion.identity) as GameObject;
                                 roomList.Add(instance1);
                                 numberRoomsNow++;
@@ -563,7 +622,6 @@ namespace itc
                                 exitRoomsGrid[roomList.Count - 1, 0] = gridNowX;
                                 exitRoomsGrid[roomList.Count - 1, 1] = gridNowY;
                                 breakKode = true;
-                            //    returningWalue = true;
                             }
                         }
                         break;
@@ -581,7 +639,6 @@ namespace itc
                                 gridMap[gridNowX, gridNowY, 0] = 1;
                                 exitRoomsGrid[roomList.Count - 1, 0] = gridNowX;
                                 exitRoomsGrid[roomList.Count - 1, 1] = gridNowY;
-                                //spawn boss room
                                 GameObject instance1 = Instantiate(TOspawnBoss, new Vector3((roomList[numberRoomsNow - 1].transform.position.x), 0f, (roomList[numberRoomsNow - 1].transform.position.z - (steepDistanse + 10))), Quaternion.identity) as GameObject;
                                 roomList.Add(instance1);
                                 numberRoomsNow++;
@@ -592,7 +649,6 @@ namespace itc
                                 exitRoomsGrid[roomList.Count - 1, 0] = gridNowX;
                                 exitRoomsGrid[roomList.Count - 1, 1] = gridNowY;
                                 breakKode = true;
-                           //     returningWalue = true;
                             }
                         }
                         break;
@@ -611,33 +667,32 @@ namespace itc
                                 gridMap[gridNowX, gridNowY, 0] = 1;
                                 exitRoomsGrid[roomList.Count - 1, 0] = gridNowX;
                                 exitRoomsGrid[roomList.Count - 1, 1] = gridNowY;
-                                //spawn boss room
                                 GameObject instance1 = Instantiate(TOspawnBoss, new Vector3((roomList[numberRoomsNow - 1].transform.position.x - (steepDistanse + 10)), 0f, (roomList[numberRoomsNow - 1].transform.position.z)), Quaternion.identity) as GameObject;
                                 roomList.Add(instance1);
                                 numberRoomsNow++;
                                 instance1.transform.SetParent(boardHolder);
                                 gridNowX = (exitRoomsGrid[curentRoom, 0] - 2);
                                 gridNowY = (exitRoomsGrid[curentRoom, 1]);
-                                //   Debug.Log((exitRoomsGrid[numberRoomsNow - 1, 0] - 1)+"   "+ (exitRoomsGrid[curentRoom, 0] - 1));
                                 gridMap[gridNowX, gridNowY, 0] = 1;
                                 exitRoomsGrid[roomList.Count - 1, 0] = gridNowX;
                                 exitRoomsGrid[roomList.Count - 1, 1] = gridNowY;
                                 breakKode = true;
-                          //      returningWalue = true;
+
                             }
                         }
                         break;
 
-
-                    default: { break; }
                 }
+                //coommon stuf
+
+
 
                 breakLimit++;
 
                 if (breakLimit > 25)
                 {
                     breakKode = true;
-                //    returningWalue = false;
+                    //    returningWalue = false;
                 }
             }
             while (breakKode == false);
@@ -647,7 +702,7 @@ namespace itc
         }
 
         // method for activate all doors that need to be closed
-        void SpawnClosedDoors()
+        IEnumerator SpawnClosedDoors()
         {
             //Create a loop for all grid X and Y
             for (int i = 0; i < gridRange; i++)
@@ -655,15 +710,20 @@ namespace itc
 
                 for (int j = 0; j < gridRange; j++)
                 {
+
                     // If this coordinates is not empty then.
                     if ((gridMap[i, j, 0]) != 0)
                     {
+                        if (visulization)
+                            yield return new WaitForSeconds(0.05f);
                         // We find what room is there.
                         GameObject lokingRoom = null;
                         for (int roomNubmer = 0; roomNubmer < numberRoomsNow; roomNubmer++)
                         {
                             if ((exitRoomsGrid[roomNubmer, 0] == i) && (exitRoomsGrid[roomNubmer, 1] == j))
+                            {
                                 lokingRoom = roomList[roomNubmer];
+                            }
                         }
                         //if doors from up rooms a closed or empty room we close doors in this room
                         if ((gridMap[(i), (j - 1), 0]) == 0 || (RoomExits(gridMap[i, j - 1, 0])[2] == 0))
@@ -673,8 +733,10 @@ namespace itc
                             {
                                 // If room have doors stats (if not prefab is broken)
                                 if (lokingRoom.GetComponent<RoomDoorsSpawner>() != null)
+                                {
                                     // Activate this doors 
                                     lokingRoom.GetComponent<RoomDoorsSpawner>().DoorsPrefab[0].SetActive(true);
+                                }
                             }
                         }
                         // For right room.
@@ -683,7 +745,9 @@ namespace itc
                             if (RoomExits(gridMap[i, j, 0])[1] == 1)
                             {
                                 if (lokingRoom.GetComponent<RoomDoorsSpawner>() != null)
+                                {
                                     lokingRoom.GetComponent<RoomDoorsSpawner>().DoorsPrefab[1].SetActive(true);
+                                }
                             }
                         }
                         // For down room.
@@ -692,7 +756,9 @@ namespace itc
                             if (RoomExits(gridMap[i, j, 0])[2] == 1)
                             {
                                 if (lokingRoom.GetComponent<RoomDoorsSpawner>() != null)
+                                {
                                     lokingRoom.GetComponent<RoomDoorsSpawner>().DoorsPrefab[2].SetActive(true);
+                                }
                             }
                         }
                         // For left room.
@@ -701,13 +767,22 @@ namespace itc
                             if ((RoomExits(gridMap[i, j, 0])[3] == 1))
                             {
                                 if (lokingRoom.GetComponent<RoomDoorsSpawner>() != null)
+                                {
                                     lokingRoom.GetComponent<RoomDoorsSpawner>().DoorsPrefab[3].SetActive(true);
-                                else Debug.Log("weDOnt have rooms");
+                                }
+                                else
+                                {
+                                    Debug.Log("weDOnt have rooms");
+                                }
                             }
                         }
                     }
                 }
+
             }
+            // start next etap of generating
+            StartCoroutine(BuildTunnels());
+
         }
 
         // A method that find all exit prefabs and remember it to global value.
@@ -725,29 +800,32 @@ namespace itc
                     if (child.tag == "Exit")
                     {
                         // Write exit array with exit prefabs.
-                        exitRoomsArray[i, k] = child.gameObject; k++;
+                        exitRoomsArray[i, k] = child.gameObject;
+                        k++;
                     }
                 }
             }
         }
 
         // A method that spawn a tunnels between rooms.
-        void BuildTunnels()
+        IEnumerator BuildTunnels()
         {
+            Debug.Log("tunels");
             for (int i = 0; i < numberRoomsNow; i++)
             {
 
                 //		Thread thre = new Thread (SpawnVerticalTunnels  );
                 //		thre.Start(i);
-
+                if (visulization)
+                    yield return new WaitForSeconds(0.05f);
                 SpawnHorizontalTunnels(i);
+                if (visulization)
+                    yield return new WaitForSeconds(0.05f);
                 SpawnVerticalTunnels(i);
             }
             //Loop for all spawned rooms.
 
         }
-
-
 
         // A method for Spawn gradien FOG of war around rooms.
         void SpawnRoomFogOfWar()
@@ -779,14 +857,16 @@ namespace itc
                 {
                     GameObject FogSpawner1 = Instantiate(fogPrefab[0], new Vector3(mostLeftPoint + (i * 10), 10.51f, mostUpPoint + 10), transform.rotation * Quaternion.Euler(90, 90, 0));
                     GameObject FogSpawner2 = Instantiate(fogPrefab[0], new Vector3(mostLeftPoint + (i * 10), 10.51f, mostDownPoint - 10), transform.rotation * Quaternion.Euler(90, 270, 0));
-                    FogSpawner1.transform.SetParent(fogHolder); FogSpawner2.transform.SetParent(fogHolder);
+                    FogSpawner1.transform.SetParent(fogHolder);
+                    FogSpawner2.transform.SetParent(fogHolder);
                 }
 
                 for (int i = -1; i < distanseZ + 1; i++)
                 {
                     GameObject FogSpawner1 = Instantiate(fogPrefab[0], new Vector3(mostLeftPoint - (10), 10.51f, mostDownPoint + (i * 10)), transform.rotation * Quaternion.Euler(90, 0, 0));
                     GameObject FogSpawner2 = Instantiate(fogPrefab[0], new Vector3(mostRightPoint + (10), 10.51f, mostDownPoint + (i * 10)), transform.rotation * Quaternion.Euler(90, 180, 0));
-                    FogSpawner1.transform.SetParent(fogHolder); FogSpawner2.transform.SetParent(fogHolder);
+                    FogSpawner1.transform.SetParent(fogHolder);
+                    FogSpawner2.transform.SetParent(fogHolder);
 
                 }
             }
@@ -819,45 +899,57 @@ namespace itc
                     int Multiplayer = (10);
                     // First buld For X Axis.
                     steepX++;
+                    GameObject instance = new GameObject();
                     // For all parts on X line 
                     for (int X = 1; X < Mathf.Abs(steepX) + 1; X++)
                     {
                         // Getcoordinates of second Room.
                         newFirstExitcoordinates.x = exitRoomsArray[i, 4].transform.position.x - X * Multiplayer;
                         newFirstExitcoordinates.z = exitRoomsArray[i, 4].transform.position.z;
-                        GameObject instance;
+
                         //If we cant fint right way spawn a normal coridor
                         if (X != Mathf.Abs(steepX))
                         {
                             // A spawn code.
                             instance = Instantiate(tunnellsPrefabs[0], newFirstExitcoordinates, transform.rotation * Quaternion.Euler(0, 90, 0));
-                            instance.transform.SetParent(boardHolder);
+
                             //Spawn a fog of war for tunles;
-                            SpawnAFogForTunnels(newFirstExitcoordinates, i, j);
+
                         }
                         // if Xcoordinates dont change. Last ones
                         if (X == Mathf.Abs(steepX) && steepZ == 0)
                         {
-                            if (Mathf.Abs(steepX) == 1) instance = Instantiate(tunnellsPrefabs[0], newFirstExitcoordinates, transform.rotation * Quaternion.Euler(0, 90, 0));
-                            else instance = Instantiate(tunnellsPrefabs[1], newFirstExitcoordinates, transform.rotation * Quaternion.Euler(0, 90, 0));
-                            instance.transform.SetParent(boardHolder);
-                            SpawnAFogForTunnels(newFirstExitcoordinates, i, j);
+                            if (Mathf.Abs(steepX) == 1)
+                            {
+                                instance = Instantiate(tunnellsPrefabs[0], newFirstExitcoordinates, transform.rotation * Quaternion.Euler(0, 90, 0));
+                            }
+                            else
+                            {
+                                instance = Instantiate(tunnellsPrefabs[1], newFirstExitcoordinates, transform.rotation * Quaternion.Euler(0, 90, 0));
+                            }
+
                         }
                         // if its first room we spawn a first room.
                         if (X == Mathf.Abs(steepX) && steepZ < 0)
                         {
                             instance = Instantiate(tunnellsPrefabs[5], newFirstExitcoordinates, transform.rotation * Quaternion.Euler(0, 180, 0));
-                            instance.transform.SetParent(boardHolder);
-                            SpawnAFogForTunnels(newFirstExitcoordinates, i, j); ;
+
+
+
 
                         }
                         // if its last room we spawn a last room
                         if (X == Mathf.Abs(steepX) && steepZ > 0)
                         {
                             instance = Instantiate(tunnellsPrefabs[4], newFirstExitcoordinates, transform.rotation * Quaternion.Euler(0, 270, 0));
-                            instance.transform.SetParent(boardHolder);
-                            SpawnAFogForTunnels(newFirstExitcoordinates, i, j);
 
+
+
+                        }
+                        instance.transform.SetParent(boardHolder);
+                        if (fogofWarshither)
+                        {
+                            SpawnAFogForTunnels(newFirstExitcoordinates, i, j);
                         }
                     }
                     // when we dont with X we build tunel in Ycoordinates  , where we build a tunel for first posible wariation last and all other
@@ -865,7 +957,9 @@ namespace itc
                     Multiplayer = (-10);
                     // If we worh with negativecoordinates we change it.
                     if (steepZ > 0)
+                    {
                         Multiplayer = Multiplayer * -1;
+                    }
                     // Now we do the same for Ycoordinates when we build From right to left room.
                     for (int Z = 1; Z < Mathf.Abs(steepZ) + 1; Z++)
                     {
@@ -873,26 +967,31 @@ namespace itc
                         newFirstExitcoordinates.z = exitRoomsArray[i, 4].transform.position.z - Z * Multiplayer;
                         if (Z != Mathf.Abs(steepZ))
                         {
-                            GameObject instance = Instantiate(tunnellsPrefabs[2], newFirstExitcoordinates, transform.rotation * Quaternion.Euler(0, 0, 0));
-                            instance.transform.SetParent(boardHolder);
-                            SpawnAFogForTunnels(newFirstExitcoordinates, i, j);
+                            instance = Instantiate(tunnellsPrefabs[2], newFirstExitcoordinates, transform.rotation * Quaternion.Euler(0, 0, 0));
+
+
                         }
                         if (Z == Mathf.Abs(steepZ) && steepX == 0)
                         {
-                            GameObject instance = Instantiate(tunnellsPrefabs[2], newFirstExitcoordinates, transform.rotation * Quaternion.Euler(0, 0, 0));
-                            instance.transform.SetParent(boardHolder);
-                            SpawnAFogForTunnels(newFirstExitcoordinates, i, j);
+                            instance = Instantiate(tunnellsPrefabs[2], newFirstExitcoordinates, transform.rotation * Quaternion.Euler(0, 0, 0));
+
+
                         }
                         if (Z == Mathf.Abs(steepZ) && steepZ < 0)
                         {
-                            GameObject instance = Instantiate(tunnellsPrefabs[5], newFirstExitcoordinates, transform.rotation * Quaternion.Euler(0, 0, 0));
-                            instance.transform.SetParent(boardHolder);
-                            SpawnAFogForTunnels(newFirstExitcoordinates, i, j);
+                            instance = Instantiate(tunnellsPrefabs[5], newFirstExitcoordinates, transform.rotation * Quaternion.Euler(0, 0, 0));
+
+
                         }
                         if (Z == Mathf.Abs(steepZ) && steepZ > 0)
                         {
-                            GameObject instance = Instantiate(tunnellsPrefabs[4], newFirstExitcoordinates, transform.rotation * Quaternion.Euler(0, 90, 0));
-                            instance.transform.SetParent(boardHolder);
+                            instance = Instantiate(tunnellsPrefabs[4], newFirstExitcoordinates, transform.rotation * Quaternion.Euler(0, 90, 0));
+
+
+                        }
+                        instance.transform.SetParent(boardHolder);
+                        if (fogofWarshither)
+                        {
                             SpawnAFogForTunnels(newFirstExitcoordinates, i, j);
                         }
                     }
@@ -913,7 +1012,7 @@ namespace itc
                 {
                     Vector3 newFirstExitcoordinates = exitRoomsArray[i, 1].transform.position;
                     Vector3 Range = exitRoomsArray[i, 1].transform.position - exitRoomsArray[j, 3].transform.position;
-                    GameObject instance;
+                    GameObject instance = new GameObject();
                     float steepX = Range.x / 10;
                     float steepZ = Range.z / 10;
                     int Multiplayer = (-10);
@@ -925,50 +1024,79 @@ namespace itc
                         if (Z != Mathf.Abs(steepZ))
                         {
                             instance = Instantiate(tunnellsPrefabs[0], newFirstExitcoordinates, transform.rotation * Quaternion.Euler(0, 0, 0));
-                            instance.transform.SetParent(boardHolder); SpawnAFogForTunnels(newFirstExitcoordinates, i, j);
+
+
                         }
                         if (Z == Mathf.Abs(steepZ) && steepX == 0)
                         {
-                            if (Mathf.Abs(steepZ) == 1) instance = Instantiate(tunnellsPrefabs[0], newFirstExitcoordinates, transform.rotation * Quaternion.Euler(0, 180, 0));
-                            else instance = Instantiate(tunnellsPrefabs[1], newFirstExitcoordinates, transform.rotation * Quaternion.Euler(0, 180, 0));
-                            instance.transform.SetParent(boardHolder); SpawnAFogForTunnels(newFirstExitcoordinates, i, j);
+                            if (Mathf.Abs(steepZ) == 1)
+                            {
+                                instance = Instantiate(tunnellsPrefabs[0], newFirstExitcoordinates, transform.rotation * Quaternion.Euler(0, 180, 0));
+                            }
+                            else
+                            {
+                                instance = Instantiate(tunnellsPrefabs[1], newFirstExitcoordinates, transform.rotation * Quaternion.Euler(0, 180, 0));
+                            }
+
+
+
                         }
                         if (Z == Mathf.Abs(steepZ) && steepX < 0)
                         {
                             instance = Instantiate(tunnellsPrefabs[5], newFirstExitcoordinates, transform.rotation * Quaternion.Euler(0, 270, 0));
-                            instance.transform.SetParent(boardHolder); SpawnAFogForTunnels(newFirstExitcoordinates, i, j);
+
+
                         }
                         if (Z == Mathf.Abs(steepZ) && steepX > 0)
                         {
                             instance = Instantiate(tunnellsPrefabs[4], newFirstExitcoordinates, transform.rotation * Quaternion.Euler(0, 0, 0));
-                            instance.transform.SetParent(boardHolder); SpawnAFogForTunnels(newFirstExitcoordinates, i, j);
+
+
+                        }
+                        instance.transform.SetParent(boardHolder);
+                        if (fogofWarshither)
+                        {
+                            SpawnAFogForTunnels(newFirstExitcoordinates, i, j);
                         }
                     }
 
                     Multiplayer = 10;
-                    if (steepX < 0) Multiplayer = Multiplayer * -1;
+                    if (steepX < 0)
+                    {
+                        Multiplayer = Multiplayer * -1;
+                    }
+
                     for (int X = 1; X < Mathf.Abs(steepX) + 1; X++)
                     {
                         newFirstExitcoordinates.x = exitRoomsArray[i, 1].transform.position.x - X * Multiplayer;
                         if (X != Mathf.Abs(steepX))
                         {
                             instance = Instantiate(tunnellsPrefabs[2], newFirstExitcoordinates, transform.rotation * Quaternion.Euler(0, 90, 0));
-                            instance.transform.SetParent(boardHolder); SpawnAFogForTunnels(newFirstExitcoordinates, i, j);
+
+
                         }
                         if (X == Mathf.Abs(steepX) && steepZ == 0)
                         {
                             instance = Instantiate(tunnellsPrefabs[2], newFirstExitcoordinates, transform.rotation * Quaternion.Euler(0, 90, 0));
-                            instance.transform.SetParent(boardHolder); SpawnAFogForTunnels(newFirstExitcoordinates, i, j);
+
+
                         }
                         if (X == Mathf.Abs(steepX) && steepX < 0)
                         {
                             instance = Instantiate(tunnellsPrefabs[5], newFirstExitcoordinates, transform.rotation * Quaternion.Euler(0, 90, 0));
-                            instance.transform.SetParent(boardHolder); SpawnAFogForTunnels(newFirstExitcoordinates, i, j);
+
+
                         }
                         if (X == Mathf.Abs(steepX) && steepX > 0)
                         {
                             instance = Instantiate(tunnellsPrefabs[4], newFirstExitcoordinates, transform.rotation * Quaternion.Euler(0, 180, 0));
-                            instance.transform.SetParent(boardHolder); SpawnAFogForTunnels(newFirstExitcoordinates, i, j);
+
+
+                        }
+                        instance.transform.SetParent(boardHolder);
+                        if (fogofWarshither)
+                        {
+                            SpawnAFogForTunnels(newFirstExitcoordinates, i, j);
                         }
                     }
                 }

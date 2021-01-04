@@ -19,7 +19,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3590051445271808012
 Transform:
   m_ObjectHideFlags: 0
@@ -27,8 +27,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3591946567897525394}
-  m_LocalRotation: {x: 0, y: 0.15842521, z: 0, w: -0.98737097}
-  m_LocalPosition: {x: 50.106533, y: -0.051178932, z: 55.558628}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3590322025209068606}
@@ -74,8 +74,8 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 1}
+  - {x: 27.5, y: 1, z: 60.73665}
+  - {x: 26, y: 1, z: 61.117798}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.2
@@ -83,8 +83,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 0.50769234
+        time: 0.11586086
+        value: 0.64229876
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -126,7 +126,7 @@ LineRenderer:
     numCornerVertices: 0
     numCapVertices: 0
     alignment: 0
-    textureMode: 0
+    textureMode: 1
     shadowBias: 0
     generateLightingData: 1
   m_UseWorldSpace: 1
@@ -143,7 +143,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d610de1cafaaa1459d46136f2cdeab8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxReflectionCount: 1
   laserLight: {fileID: 3592014285588806788}
+  currentBouse: 1
 --- !u!114 &3480107838116337652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,14 +158,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b7f6b645c8ef6040a903f219094af67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponName: Lazer Red
   weaponType: 1
   weaponDamage: 5
   weaponReloadTime: 0.05
   weaponMagazine: 999
-  weaponBulletsInMagazine: 13
+  weaponBulletsInMagazine: 999
   weaponMagazineReloadTime: 2
   weaponBulletSpeed: 50
   weaponRottation: 0
+  weaponAccuracy: 0
 --- !u!212 &3688070414820501800
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -171,7 +175,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3591946567897525394}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -202,7 +206,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 22b1aec0a3b1ce2489b5e14a9e9bd4ef, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8a7bba8665b1d2f4cb5433489baaf0c0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -12,6 +12,7 @@ public class PlayerWeapons : MonoBehaviour
     // Reload Speed.
     private float nextFire;
 
+
     // Inventory system.
     public List<GameObject> weaponsIninventory = new List<GameObject>();
     public GameObject curentWeapon;
@@ -35,6 +36,7 @@ public class PlayerWeapons : MonoBehaviour
     {
 
         weaponStats = curentWeapon.GetComponent<WeaponStats>();
+        UIWeapon.sprite = curentWeapon.GetComponent<SpriteRenderer>().sprite;
     }
 
     public void FireWithRayWeapon()
@@ -45,6 +47,8 @@ public class PlayerWeapons : MonoBehaviour
         lazerTosapwn.transform.parent = player.transform;
 
     }
+
+    
 
     //Bullets.
     void FireWithAutomaticWeapon()
@@ -67,16 +71,16 @@ public class PlayerWeapons : MonoBehaviour
 
             // if you have ammo in magazine
             if (weaponBulletsInMagazine > 0)
+            {
                 StartCoroutine(weaponStats.FireProjective());
-
-
-
+            }
         }
 
     }
 
     private IEnumerator Reload(float reloadTime, GameObject reloadedweapon)
     {
+        
         WaitForSeconds wait = new WaitForSeconds(reloadTime);
         reloadActive = true;
         yield return wait;
@@ -104,6 +108,14 @@ public class PlayerWeapons : MonoBehaviour
             //		activItem.GetComponent<IUsable> ().Activate();
 
         }
+        //Manual reload
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            weaponStats.weaponBulletsInMagazine = 0;
+            float reloadTime = weaponStats.weaponMagazineReloadTime;
+            StartCoroutine(Reload(reloadTime, curentWeapon));
+
+        }
 
 
 
@@ -125,7 +137,10 @@ public class PlayerWeapons : MonoBehaviour
 
 
                 if (weaponStats.weaponType == 1)
+                {
                     curentWeapon.SetActive(false);
+                }
+
                 curentWeapon = weaponsIninventory[numberOfWeapon];
                 weaponStats = curentWeapon.GetComponent<WeaponStats>();
 
@@ -138,7 +153,21 @@ public class PlayerWeapons : MonoBehaviour
         }
 
 
-        if (Input.GetButton("Fire1"))
+
+        //semi automatic weapon
+        if (Input.GetKeyDown(KeyCode.Mouse0) == true)
+        {
+
+
+            if (weaponStats.weaponType == 2)
+            {
+
+                FireWithAutomaticWeapon();
+            }
+
+        }
+        //FIRE weapon
+        if (Input.GetKey(KeyCode.Mouse0) == true && !reloadActive)
         {
             // Weapon with magazine
             if (weaponStats.weaponType == 0)
@@ -146,13 +175,8 @@ public class PlayerWeapons : MonoBehaviour
                 FireWithAutomaticWeapon();
             }
 
+            //Ray weapon
 
-        }
-
-
-        //Ray weapon
-        if (Input.GetKey(KeyCode.Mouse0) == true && !reloadActive)
-        {
             if ((weaponStats.weaponType == 1) && (weaponStats.weaponBulletsInMagazine >= 0))
             {
                 curentWeapon.SetActive(true);
@@ -188,14 +212,15 @@ public class PlayerWeapons : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.Mouse0) == true)
         {
+
             curentWeapon.SetActive(false);
 
         }
         //Actic weapon dysplay.	
         if (activItem != null)
+        {
             UIActiv.sprite = activItem.GetComponent<SpriteRenderer>().sprite;
-
-
+        }
     }
     public void AddItem(GameObject itemToadd)
     {

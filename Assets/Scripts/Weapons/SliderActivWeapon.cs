@@ -21,7 +21,7 @@ public class SliderActivWeapon : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		if (player.GetComponent<PlayerWeapons> ().activItem != null)
+		if (player.GetComponent<PlayerWeapons>().activItem != null)
 		{	
 			fillarena.SetActive (true);
 			contactedActivItem=player.GetComponent<PlayerWeapons> ().activItem;

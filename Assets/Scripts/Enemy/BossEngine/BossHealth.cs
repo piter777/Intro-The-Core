@@ -5,8 +5,8 @@ using UnityEngine;
 public class BossHealth : EnemyHealth
 {
     public GameObject[] armorPlates;
-    private float healthParts;
-    private int plateNumber=0;
+    public float healthParts;
+    public int plateNumber=0;
     private void Start()
     {
         healthParts = startingHealth / (armorPlates.Length+1);
@@ -14,12 +14,19 @@ public class BossHealth : EnemyHealth
 
     public override void DamageTaken(float WeaponDamage)
     {
+        Debug.Log(WeaponDamage);
         //destroy armor plates
-        if ((currentHealth < startingHealth - healthParts* (plateNumber+1)) &&(armorPlates!=null))
+
+        if (armorPlates.Length > plateNumber)
         {
-            Destroy(armorPlates[plateNumber]);
-            plateNumber++;
-           
+            
+
+            if ((currentHealth < startingHealth - healthParts * (plateNumber + 1)) && (armorPlates[plateNumber] != null))
+            {
+                Destroy(armorPlates[plateNumber]);
+                plateNumber++;
+
+            }
         }
 
 
