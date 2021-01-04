@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1122506865784026223
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1122506865848119533}
+  - component: {fileID: 1122506865784026216}
+  m_Layer: 0
+  m_Name: GameEngine
+  m_TagString: GameController
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1122506865848119533
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1122506865784026223}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1122506865784026216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1122506865784026223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbd2eb3d3229f2840821476bc21c077d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  steepDistanse: 70
+  numberOfRoomsToSpawn: 15
+  randomRangeRoom: 1
+  roomPrefab:
+  - {fileID: 1334089579478866, guid: e699a3a6651a2d74a985ec48981b276e, type: 3}
+  - {fileID: 1418583176391994795, guid: b1a79f8b5371f6a489582f5c0fa0309f, type: 3}
+  - {fileID: 1903386870235156, guid: 130c849ef9d95a949be91b214eb0378e, type: 3}
+  - {fileID: 2489653075603884602, guid: 84061ee2dc4895940a2fe7cc872e2a64, type: 3}
+  - {fileID: 1271165295008896, guid: e4f96ba257537ba4f9c29c4a2f8fe887, type: 3}
+  - {fileID: 1690838532998066, guid: 63fea594044b7d640a83afd6ecb3b4ae, type: 3}
+  - {fileID: 1091445069795162, guid: 70a0f6bf2a619554cbdf557a54574df2, type: 3}
+  - {fileID: 1799854112513210, guid: d6eb2b5fd1ec9934382bedd795acdfab, type: 3}
+  - {fileID: 1536700120273104, guid: 46f29a41e157f3b49a4f1f972c69a164, type: 3}
+  - {fileID: 1434945262892836, guid: cc5b604de0cfb4c449c5119edbf16af4, type: 3}
+  - {fileID: 1967497717503948, guid: b55d8a06f441baf4d84de30f9b492b5d, type: 3}
+  - {fileID: 1809317210318932, guid: b4bd79f552150b94aa041f41dbccafa7, type: 3}
+  - {fileID: 1809317210318932, guid: b4bd79f552150b94aa041f41dbccafa7, type: 3}
+  tunnellsPrefabs:
+  - {fileID: 1244119432401164, guid: a6331440055d793499176860bebdd5b4, type: 3}
+  - {fileID: 1022240015496372, guid: 8637b7cbd1f46bf498d78adb98d823cf, type: 3}
+  - {fileID: 1520218541524284, guid: 3b0c741af48d3b347bd393fc548c568d, type: 3}
+  - {fileID: 1418363312514910, guid: d82af1e783adf3548b0fbf4b0377207d, type: 3}
+  - {fileID: 1126888608246986, guid: 328eece13220ee046b0eb97cf870e406, type: 3}
+  - {fileID: 1687133776945470, guid: 65d205692137e424eaeedb7a870f340a, type: 3}
+  fogPrefab:
+  - {fileID: 1269382099681656, guid: 45d32b83e515f0c42ac182d6c745f1f6, type: 3}
+  - {fileID: 1813764735955788, guid: c6c4197737f90494083eab39e4aba559, type: 3}
+  - {fileID: 1675720558021978, guid: 5add778055054c245896f61369c2a5ff, type: 3}
+  fogofWarshither: 1
