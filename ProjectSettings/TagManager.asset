@@ -3,7 +3,18 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Dynamic
+  - Static
+  - UI
+  - Room
+  - Trigger
+  - Enemy
+  - Exit
+  - Fllor
+  - Projective
+  - Laser
+  - Item
   layers:
   - Default
   - TransparentFX

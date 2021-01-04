@@ -48,6 +48,7 @@ LineRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -142,7 +143,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d610de1cafaaa1459d46136f2cdeab8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxReflectionCount: 5
   laserLight: {fileID: 0}
+  currentBouse: 1
 --- !u!114 &114089812956953890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,6 +182,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
