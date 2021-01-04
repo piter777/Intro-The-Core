@@ -109,7 +109,7 @@ public class LaserRendere : MonoBehaviour
         {
             if ((hit.collider) && (hit.collider.tag != "Trigger"))
             {
-                Debug.Log("layer " + hit.transform.gameObject.layer);
+              //  Debug.Log("layer " + hit.transform.gameObject.layer);
                 //   lr.SetPosition(1, Vector3.Lerp(hit.point, gameObject.transform.position,0));
                 //new Vector3(hit.point.x+Random.Range(-5f,5f), hit.point.y, hit.point.z + Random.Range(-5f, 5f)));
                 lr.SetPosition(1, hit.point);
